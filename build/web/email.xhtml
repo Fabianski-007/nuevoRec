@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsf/html"
+                template="/templates/template.xhtml">
+
+  
+
+    <ui:define name="bodyContent">
+        <h:form id="pollfrml">
+            <p:outputLabel value="Fecha"/>
+            <p:outputLabel id="tiempo" value="#{serverTimeBean.time}"/>
+            <p:poll interval="1" listener="#{serverTimeBean.updateTime()}" update="tiempo"/>            
+        </h:form>
+
+        <h:form id="emailForm">
+            <p:messages id="messages" severity="error" showDetail="true" autoUpdate="true"/>
+            <div style="text-align: center">
+            <p:panel header="Formulario de Email">
+            
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="DE: "/>
+                    <h:inputText value="#{emailJSFManagedBean.from}"
+                                 validator="#{emailJSFManagedBean.validateEmail}"
+                                 label="from"
+                                 id="from"
+                                 size="50">
+                    </h:inputText>
+                    <h:message for="from" style="color:red"/>
+                    <h:outputLabel value="PARA: "/>
+                    <h:inputText value="#{emailJSFManagedBean.to}" required="true"
+                                 validator="#{emailJSFManagedBean.validateEmail}"
+                                 label="to"
+                                 id="to"
+                                 size="50">
+                    </h:inputText>
+                    <h:message for="to" style="color:red"/>
+                    <h:outputLabel value="ASUNTO: "/>
+                    <h:inputText value="#{emailJSFManagedBean.subject}"
+                                 validatorMessage="Requiere el Asunto"
+                                 label="subject"
+                                 id="subject"
+                                 size="50">
+                    </h:inputText>
+                    
+                     <p:message for="subject" style="color: red"/>
+                    <p:outputLabel value="SMTP:"/>
+                    <p:inputText id="smtp"
+                                 validatorMessage="SMTP requiere un direccion IP"
+                                 value="#{emailJSFManagedBean.smtp}"
+                                 size="50">
+                        <f:validateRequired for="smtp"/>             
+                    </p:inputText>
+                    <h:message for="subject" style="color:red"/>
+
+                    <h:outputLabel value="USUARIO: "/>
+                    <h:inputText id="usuario" value="#{emailJSFManagedBean.username}"
+                                 size="50">
+                    </h:inputText>
+                    <h:message for="usuario" style="color:red"/>
+                    <h:outputLabel value="PASSWORD: "/>
+                    <h:inputSecret id="password" value="#{emailJSFManagedBean.password}"
+                                   size="50">
+                    </h:inputSecret>
+                    
+                     <p:message style="color: red" for="password"/>
+                    <p:outputLabel value="Puerto:"/>
+                    <p:inputText id="puerto" value="#{emailJSFManagedBean.port}"
+                                 size="50" style="margin-right: 50px">
+                    </p:inputText>
+                    
+                    <p:message style="color: red" for="puerto"/>
+                    <p:outputLabel value="Mensaje:"/>
+                    <p:inputTextarea id="descr" cols="50" rows="5"
+                                     value="#{emailJSFManagedBean.descr}">
+                    </p:inputTextarea>
+                    
+                    <p:message style="color: red" for="descr"/>
+                    <p:commandButton action="#{emailJSFManagedBean.submitEmail}"
+                                     value="Enviar" id="submit"/>
+                </h:panelGrid>
+            </p:panel>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

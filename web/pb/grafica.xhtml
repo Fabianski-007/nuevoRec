@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h2>Grafica</h2>
+        <h:form>
+            <p:commandButton value="Graficar" actionListener="#{productoBean.listar()}" update="panel"/>
+            <h:panelGroup id="panel" layout="block">
+                <p:chart type="bar" model="#{productoBean.barModel}" style="width: 400px; height: 400px;"
+                         rendered="#{productoBean.barModel != null}"/>
+            </h:panelGroup>
+            <a class="text-3xl font-light border-b-2 border-purple-600 my-2" href="../administracion/producto/index.xhtml">Regresar</a>
+        </h:form>
+    </h:body>
+</html>
